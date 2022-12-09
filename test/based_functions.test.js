@@ -76,6 +76,5 @@ test('check updating element in Game Board', () => {
         [0, 0, 0, 0, 0, 0, 0],
     ];
     const result = updateElementInGameBoard(gmBoard, 5, 0, 2);
-    console.log(result);
     expect(result[4][0]).toBe(0)
 })
