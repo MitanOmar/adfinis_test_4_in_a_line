@@ -1,4 +1,9 @@
-import {isAllElementAreEqual, isThere4ElementsNextToEachOther, isPointExistInBoard} from "../js/GameState.js";
+import {
+    isAllElementAreEqual,
+    isThere4ElementsNextToEachOther,
+    isPointExistInBoard,
+    updateElementInGameBoard
+} from "../js/GameState.js";
 
 test('Test Function isAllElementAreEqual', () => {
     expect(isAllElementAreEqual([1, 1, 1, 1])).toBeTruthy();
@@ -46,4 +51,31 @@ test('check if point exists in boarder', () => {
         [0, 0, 0, 0, 0, 0, 0],
     ];
     expect(isPointExistInBoard(gmBoard, 7, 7)).toBeFalsy()
+})
+
+test('check updating element in Game Board', () => {
+    const gmBoard = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ];
+    const result = updateElementInGameBoard(gmBoard, 5, 0, 2);
+    expect(result[5][0]).toBe(2)
+})
+
+test('check updating element in Game Board', () => {
+    const gmBoard = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ];
+    const result = updateElementInGameBoard(gmBoard, 5, 0, 2);
+    console.log(result);
+    expect(result[4][0]).toBe(0)
 })

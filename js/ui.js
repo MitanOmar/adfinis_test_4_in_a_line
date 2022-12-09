@@ -6,15 +6,25 @@ export class Ui {
     constructor(gameState) {
         this.gameState = gameState;
     }
+
+    createBoard(rowsLength, columnsLength) {
+        this.gameState.createBoard(rowsLength, columnsLength)
+    }
+
     insertBall(column) {
         let isGameDone = this.gameState.isThereWinner();
         if (isGameDone) {
             console.log('There is already a winner')
             return;
         }
-        for (let i = this.gameState.gameBoard.length -1; i >= 0; i--) {
+        const gameRows = this.gameState.gameBoard.length;
+        for (let i = (gameRows - 1); i >= 0; i--) {
             if (this.gameState.gameBoard[i][column] === 0) {
-                this.gameState.gameBoard[i][column] = this.gameState.isFirstPlayer ? this.firstPlayerColor : this.secondPlayerColor;
+                this.gameState.updateElementInGameBoard(
+                    i,
+                    column,
+                    this.gameState.isFirstPlayer ? this.firstPlayerColor : this.secondPlayerColor
+                    )
                 break;
             }
         }
@@ -60,7 +70,7 @@ export class Ui {
         const tr = document.createElement('tr');
         for (let i = 0; i < gameBoardColumn.length; i++) {
             const td = document.createElement('td');
-            const className = gameBoardColumn[i] === 0 ? 'secondary' : ( gameBoardColumn[i] === 1 ? 'primary' : 'danger');
+            const className = gameBoardColumn[i] === 0 ? 'secondary' : (gameBoardColumn[i] === 1 ? 'primary' : 'danger');
             td.innerHTML = `<span class="badge bg-${className}">${gameBoardColumn[i]}</span>`;
             tr.append(td)
         }
@@ -75,7 +85,11 @@ export class Ui {
             const button = document.createElement('button');
             button.className = 'btn btn-outline-' + (canInsert ? 'primary' : 'danger');
             button.disabled = !canInsert;
-            button.onclick = () => this.insertBall(i);
+            button.id = 'insertButton' + i;
+            button.onclick = () => {
+                console.log('inserting in ', i);
+                this.insertBall(i)
+            };
             button.textContent = 'Insert';
             th.append(button);
             tr.append(th)

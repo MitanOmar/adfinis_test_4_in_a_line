@@ -17,6 +17,17 @@ export function isThere4ElementsNextToEachOther(givenArray) {
 export function isPointExistInBoard(board, row, column) {
     return board[row] !== undefined && board[row][column] !== undefined;
 }
+export function updateElementInGameBoard(gameBoard, row, column, newValue) {
+    gameBoard[row][column] = newValue;
+    return gameBoard;
+}
+export function createBoard(rowsLength, columnsLength) {
+    const columns = Array.from({ length: columnsLength }, () => 0)
+    return Array.from({ length: rowsLength }, () => [...columns])
+    // by using [...columns], will create new array from it values
+    // before this step, it was passing the value by referance,
+    // so when i was updating when column, all rows in the same column was beein updated
+}
 export class GameState {
     isFirstPlayer = true;
     gameBoard = [
@@ -27,15 +38,25 @@ export class GameState {
         [0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0],
     ]
-
-    switchPlayer() {
-        this.isFirstPlayer = !this.isFirstPlayer;
-    }
     constructor(gameBoard = null) {
         if (gameBoard !== null) {
             this.gameBoard = gameBoard;
         }
     }
+
+    createBoard(rowsLength, columnsLength) {
+        this.gameBoard = createBoard(rowsLength, columnsLength);
+    }
+    updateElementInGameBoard(row, column, newValue) {
+        this.gameBoard = updateElementInGameBoard(this.gameBoard, row, column, newValue);
+        console.log(this.gameBoard);
+        return this.gameBoard;
+    }
+
+    switchPlayer() {
+        this.isFirstPlayer = !this.isFirstPlayer;
+    }
+
     canInsertInThisColumn (columnNumber) {
         return this.gameBoard[0][columnNumber] === 0;
     }
@@ -102,7 +123,7 @@ export class GameState {
             let startPoint = [i, 0]; // [x, y]
             const elementInThisLine = [];
             while (this.isPointExistInBoard(this.gameBoard, startPoint[0], startPoint[1])) {
-                elementInThisLine.push(this.gameBoard[startPoint[1]][startPoint[0]])
+                elementInThisLine.push(this.gameBoard[startPoint[0]][startPoint[1]])
                 startPoint[0]--;
                 startPoint[1]++;
             }
