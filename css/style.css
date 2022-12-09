@@ -1,0 +1,6 @@
+.container {
+    text-align: -webkit-center;
+}
+.table {
+    max-width: min-content;
+}
