@@ -20,7 +20,7 @@ export class Ui {
         const gameRows = this.gameState.gameBoard.length;
         for (let i = (gameRows - 1); i >= 0; i--) {
             if (this.gameState.gameBoard[i][column] === 0) {
-                this.gameState.gameBoard = this.gameState.updateElementInGameBoard(
+                this.gameState.updateElementInGameBoard(
                     i,
                     column,
                     this.gameState.isFirstPlayer ? this.firstPlayerColor : this.secondPlayerColor

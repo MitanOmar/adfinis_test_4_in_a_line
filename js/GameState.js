@@ -22,8 +22,11 @@ export function updateElementInGameBoard(gameBoard, row, column, newValue) {
     return gameBoard;
 }
 export function createBoard(rowsLength, columnsLength) {
-    const columns = Array.from({ length: columnsLength }, (_, __) => 0)
-    return Array.from({ length: rowsLength }, (_, __) => columns)
+    const columns = Array.from({ length: columnsLength }, () => 0)
+    return Array.from({ length: rowsLength }, () => [...columns])
+    // by using [...columns], will create new array from it values
+    // before this step, it was passing the value by referance,
+    // so when i was updating when column, all rows in the same column was beein updated
 }
 export class GameState {
     isFirstPlayer = true;
@@ -40,8 +43,13 @@ export class GameState {
             this.gameBoard = gameBoard;
         }
     }
+
+    createBoard(rowsLength, columnsLength) {
+        this.gameBoard = createBoard(rowsLength, columnsLength);
+    }
     updateElementInGameBoard(row, column, newValue) {
         this.gameBoard = updateElementInGameBoard(this.gameBoard, row, column, newValue);
+        console.log(this.gameBoard);
         return this.gameBoard;
     }
 

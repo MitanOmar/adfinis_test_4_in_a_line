@@ -1,8 +1,7 @@
 import { Ui } from "./ui.js";
-import { GameState, createBoard } from "./GameState.js";
-console.log(createBoard(5, 6));
-const gameState = new GameState(createBoard(5, 6));
+import { GameState } from "./GameState.js";
+const gameState = new GameState();
 const ui = new Ui(gameState);
-// ui.createBoard(10, 10)
+ui.createBoard(10, 7)
 
 ui.parseGame()
